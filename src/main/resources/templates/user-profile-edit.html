@@ -46,9 +46,9 @@
                        class="text-danger">Error message</small>
             </div>
 
-            <div th:if="${error}" class="alert alert-danger align-center" role="alert">
+            <small th:if="${error}" class="text-danger">
                 <p th:text="${error}"></p>
-            </div>
+            </small>
 
             <div class="d-flex justify-content-center gap-3">
                 <button type="submit" class="btn btn-primary">Изменить</button>

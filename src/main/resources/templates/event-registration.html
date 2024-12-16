@@ -41,6 +41,9 @@
                                 <button type="submit" class="btn btn-primary">Записаться</button>
                                 <a class="btn btn-secondary" th:href="@{/}">Отменить</a>
                             </div>
+                            <small th:if="${error}" class="text-danger">
+                                <p th:text="${error}"></p>
+                            </small>
                         </form>
 
                     </div>

@@ -1,5 +1,6 @@
 package com.example.potteryworkshop.controllers;
 
+import com.example.potteryworkshop.exceptions.order.NotEnoughTicketsException;
 import com.example.potteryworkshop.models.dtos.*;
 import com.example.potteryworkshop.services.*;
 import jakarta.validation.Valid;
@@ -207,9 +208,20 @@ public class EventControllerImpl implements EventController {
             model.addAttribute("form", eventRegistrationForm);
             return "event-registration";
         }
-        orderService.addOrder(new OrderInputDTO(eventRegistrationForm.ticketQuantity(), email, eventId), false);
-        LOG.log(Level.INFO, "Successfully registration to event with id: " + eventId);
-        return "redirect:/users/profile/actual";
+        try {
+            orderService.addOrder(new OrderInputDTO(eventRegistrationForm.ticketQuantity(), email, eventId), false);
+            LOG.log(Level.INFO, "Successfully registration to event with id: " + eventId);
+            return "redirect:/users/profile/actual";
+        } catch (NotEnoughTicketsException exception) {
+            LOG.log(Level.INFO, "Incorrect data for registration to event with id: " + eventId);
+            var potter = potterService.findById(event.getPotterId());
+            var viewModel = new EventRegistrationViewModel(createBaseViewModel("Запись на мероприятие"), new EventViewModel(event.getId().toString(), event.getName(), event.getDuration(), event.getCost(), event.getDiscountCost(), event.getDescription(), event.getDate(), event.getImageUrl(), event.getCategoryName(), event.getDifficultyName(), event.getPotterName()),
+                    new PotterViewModel(potter.getId(), potter.getName(), potter.getExperienceYears(), potter.getExperienceMonths(), potter.getImageUrl()));
+            model.addAttribute("model", viewModel);
+            model.addAttribute("form", eventRegistrationForm);
+            model.addAttribute("error", exception.getMessage());
+            return "event-registration";
+        }
     }
 
     @Override
@@ -248,9 +260,21 @@ public class EventControllerImpl implements EventController {
             model.addAttribute("form", eventRegistrationForm);
             return "event-registration";
         }
-        orderService.addOrder(new OrderInputDTO(eventRegistrationForm.ticketQuantity(), email, eventId), true);
-        LOG.log(Level.INFO, "Successfully registration to discount event with id: " + eventId);
-        return "redirect:/users/profile/actual";
+        try {
+            orderService.addOrder(new OrderInputDTO(eventRegistrationForm.ticketQuantity(), email, eventId), true);
+            LOG.log(Level.INFO, "Successfully registration to discount event with id: " + eventId);
+            return "redirect:/users/profile/actual";
+        } catch (NotEnoughTicketsException exception) {
+            LOG.log(Level.INFO, "Incorrect data for registration to discount event with id: " + eventId);
+            var potter = potterService.findById(event.getPotterId());
+            var viewModel = new DiscountEventRegistrationViewModel(createBaseViewModel("Запись на мероприятие"),
+                    new DiscountEventViewModel(event.getId().toString(), event.getName(), event.getDuration(), event.getCost(), event.getDiscountCost(), event.getDescription(), event.getDate(), event.getImageUrl(), event.getCategoryName(), event.getDifficultyName(), event.getPotterName()),
+                    new PotterViewModel(potter.getId(), potter.getName(), potter.getExperienceYears(), potter.getExperienceMonths(), potter.getImageUrl()));
+            model.addAttribute("model", viewModel);
+            model.addAttribute("form", eventRegistrationForm);
+            model.addAttribute("error", exception.getMessage());
+            return "event-registration";
+        }
     }
 
     @Override
