@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center mb-4">
+                    <h1>ГОНЧАРЫ</h1>
+                </div>
+                <div th:if="${not #lists.isEmpty(model.potters)}" class="row g-4">
+                    <div th:each="potter : ${model.potters}" class="col-md-4 col-sm-6">
+                        <div class="card border-secondary h-100">
+                            <div class="card-body text-center">
+                                <img th:src="${potter.imageUrl}"
+                                     style="width: 100%; max-height: 300px; object-fit: cover;">
+                                <h5 class="card-title" th:text="${potter.name}">Имя</h5>
+                                <p class="card-text">
+                                    <strong>Опыт работы:</strong>
+                                    <span th:text="${potter.experienceYears} + (${potter.experienceYears < 4 ? ' г. ' : ' л. '}) + ${potter.experienceMonths} + ' мес.'"></span>
+                                </p>
+                                <div class="mt-3">
+                                    <a class="btn btn-warning"
+                                       th:href="@{/potters/{potterId}(potterId=${potter.id})}">Подробнее</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

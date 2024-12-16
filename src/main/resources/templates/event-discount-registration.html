@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
+                <div class="justify-content-center mb-4">
+                    <h1>ЗАПИСЬ НА МЕРОПРИЯТИЕ</h1>
+                </div>
+                <div class="row bg-light rounded align-items-center p-4">
+                    <div class="col-md-6 d-flex justify-content-center">
+                        <img th:src="${model.event.imageUrl}" alt="Изображение мероприятия"
+                             class="img-fluid rounded" style="max-height: 300px; object-fit: cover;">
+                    </div>
+                    <div class="col-md-6">
+                        <h2 th:text="${model.event.name}">Название мероприятия</h2>
+                        <h5 th:text="${#temporals.format(model.event.date, 'dd MMMM yyyy, HH:mm', new java.util.Locale('ru', 'RU'))}"> Дата и время</h5>
+                        <h5 th:text="${model.event.description}">Описание</h5>
+                        <h5 th:text="'Стоимость: ' + ${model.event.discountCost} + ' рублей'">Стоимость</h5>
+                        <h5 th:text="'Длительность: ' + ${model.event.duration} + ' мин.'">Длительность</h5>
+                        <h5 th:text="'Категория: ' + ${model.event.categoryName}">Категория</h5>
+                        <h5 th:text="'Сложность: ' + ${model.event.difficultyName}">Сложность</h5>
+                        <h5 th:text="'Гончар: ' + ${model.event.potterName}">Гончар</h5>
+                        <form th:action="@{/events/{eventId}(eventId=${eventId})}"
+                              th:method="post"
+                              th:object="${form}">
+                            <div class="mt-3 d-flex align-items-center justify-content-start gap-3">
+                                <input th:field="*{ticketQuantity}"
+                                       th:errorclass="is-invalid"
+                                       type="number"
+                                       min="1" max="10"
+                                       class="form-control w-auto"
+                                       id="ticketQuantity"
+                                       style="height: 38px;">
+                                <small th:if="${#fields.hasErrors('ticketQuantity')}"
+                                       th:errors="*{ticketQuantity}"
+                                       class="text-danger">Ошибка</small>
+                                <button type="submit" class="btn btn-primary">Записаться</button>
+                                <a class="btn btn-secondary" th:href="@{/events/discount}">Отменить</a>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

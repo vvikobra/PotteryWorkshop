@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
+                <div class="justify-content-center">
+                    <h1>ДОБАВИТЬ МЕРОПРИЯТИЕ</h1>
+                </div>
+                <form th:action="@{/events/create}"
+                      th:method="post"
+                      th:object="${form}"
+                      class="m-md-auto w-50 pb-3">
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Название</label>
+                        <input th:field="*{name}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="name"/>
+                        <small th:if="${#fields.hasErrors('name')}"
+                               th:errors="*{name}"
+                               class="text-danger">Error message</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="duration">Длительность</label>
+                        <input th:field="*{duration}"
+                               th:errorclass="is-invalid"
+                               type="number"
+                               min="30"
+                               class="form-control text-center"
+                               id="duration"/>
+                        <small th:if="${#fields.hasErrors('duration')}"
+                               th:errors="*{duration}"
+                               class="text-danger">Error message</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="cost">Стоимость</label>
+                        <input th:field="*{cost}"
+                               th:errorclass="is-invalid"
+                               type="number"
+                               min="100"
+                               class="form-control text-center"
+                               id="cost"/>
+                        <small th:if="${#fields.hasErrors('cost')}"
+                               th:errors="*{cost}"
+                               class="text-danger">Error message</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="maxParticipants">Максимальное количество участников</label>
+                        <input th:field="*{maxParticipants}"
+                               th:errorclass="is-invalid"
+                               type="number"
+                               min="1"
+                               class="form-control text-center"
+                               id="maxParticipants"/>
+                        <small th:if="${#fields.hasErrors('maxParticipants')}"
+                               th:errors="*{maxParticipants}"
+                               class="text-danger">Error message</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Описание</label>
+                        <textarea th:field="*{description}"
+                                  th:errorclass="is-invalid"
+                                  rows=4
+                                  class="form-control text-center"
+                                  id="description"></textarea>
+                        <small th:if="${#fields.hasErrors('description')}"
+                               th:errors="*{description}"
+                               class="text-danger">Error message</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="date">Дата проведения</label>
+                        <input th:field="*{date}"
+                               th:errorclass="is-invalid"
+                               type="datetime-local"
+                               class="form-control text-center"
+                               id="date"/>
+                        <small th:if="${#fields.hasErrors('date')}"
+                               th:errors="*{date}"
+                               class="text-danger">Error message</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="imageUrl">URL изображения</label>
+                        <input th:field="*{imageUrl}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="imageUrl"/>
+                        <small th:if="${#fields.hasErrors('imageUrl')}"
+                               th:errors="*{imageUrl}"
+                               class="text-danger">Error message</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-control" id="potters" th:field="*{potterName}">
+                            <option value="0">Гончар</option>
+                            <option th:each="option : ${potters}" th:value="${option}"
+                                    th:text="${option}"></option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex gap-3 mb-3">
+                        <select class="form-control" id="difficulties" th:field="*{difficultyName}">
+                            <option value="0">Сложность</option>
+                            <option th:each="option : ${difficulties}" th:value="${option}"
+                                    th:text="${option}"></option>
+                        </select>
+
+                        <select class="form-control" id="categories" th:field="*{categoryName}">
+                            <option value="0">Категория</option>
+                            <option th:each="option : ${categories}" th:value="${option}" th:text="${option}"></option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-center gap-3">
+                        <button type="submit" class="btn btn-success">Добавить</button>
+                        <a class="btn btn-secondary" th:href="@{/events/}">Отменить</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

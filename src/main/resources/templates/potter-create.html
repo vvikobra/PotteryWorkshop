@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
+                <div class="justify-content-center">
+                    <h1>ИЗМЕНИТЬ ГОНЧАРА</h1>
+                </div>
+
+                <form th:action="@{/potters/create}"
+                      th:method="post"
+                      th:object="${form}"
+                      class="m-md-auto w-50 pb-3">
+
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Имя</label>
+                        <input th:field="*{name}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="name"/>
+                        <small th:if="${#fields.hasErrors('name')}"
+                               th:errors="*{name}"
+                               class="text-danger">Error message</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="employmentDate">Дата трудоустройства</label>
+                        <input th:field="*{employmentDate}"
+                               th:errorclass="is-invalid"
+                               type="date"
+                               class="form-control text-center"
+                               id="employmentDate"/>
+                        <small th:if="${#fields.hasErrors('employmentDate')}"
+                               th:errors="*{employmentDate}"
+                               class="text-danger">Error message</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="imageUrl">URL изображения</label>
+                        <input th:field="*{imageUrl}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="imageUrl"/>
+                        <small th:if="${#fields.hasErrors('imageUrl')}"
+                               th:errors="*{imageUrl}"
+                               class="text-danger">Error message</small>
+                    </div>
+
+                    <div class="d-flex justify-content-center gap-3">
+                        <button type="submit" class="btn btn-success">Добавить</button>
+                        <a class="btn btn-secondary" th:href="@{/potters/admin}">Отменить</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

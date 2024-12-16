@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg bg-light" xmlns:sec="http://www.w3.org/1999/xhtml"
+     xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
+            <li class="nav-item" sec:authorize="hasRole('USER')">
+                <a class="nav-item nav-link text-dark fw-bold" href="/">POTTERTAINMENT</a></li>
+            <li class="nav-item" sec:authorize="hasRole('USER')">
+                <a class="nav-item nav-link text-dark" href="/events/discount">АКЦИИ</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('USER')">
+                <a class="nav-item nav-link text-dark" href="/events/upcoming">БЛИЖАЙШИЕ МЕРОПРИЯТИЯ</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('USER')">
+                <a class="nav-item nav-link text-dark" href="/potters/">ГОНЧАРЫ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-item nav-link text-dark" href="/users/profile/actual">ЛИЧНЫЙ КАБИНЕТ</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-item nav-link text-dark" href="/events/">МЕРОПРИЯТИЯ</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-item nav-link text-dark" href="/potters/admin">ГОНЧАРЫ</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <form
+                        th:method="post"
+                        th:action="@{/users/logout}">
+                    <input class="btn btn-link nav-link text-dark" type="submit" value="ВЫЙТИ">
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>

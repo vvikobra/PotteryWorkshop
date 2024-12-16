@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">NavBar</div>
+<main class="flex-shrink-0">
+    <h1 class="text-center">Гончар</h1>
+    <div class="bg-light p-3 rounded mb-4">
+        <h2 th:text="${model.potter.name}">Имя гончара</h2>
+        <h5 th:text="${model.potter.experienceYears} + (${model.potter.experienceYears < 4 ? ' г. ' : ' л. '}) + ${model.potter.experienceMonths} + ' мес.'">Опыт работы</h5>
+    </div>
+    <div class="mt-4" th:if="${not #lists.isEmpty(model.events)}">
+        <div th:each="event : ${model.events}"
+             class="d-flex bg-light mb-4 p-4 border rounded" style="max-width: 90%; margin: 0 auto;">
+            <div class="d-flex flex-column align-items-center col-md-4">
+                <h2 class="text-center mt-3" th:text="${event.name}">Название мероприятия</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-center col-md-10 ms-4">
+                <h4 th:text="'Дата проведения: ' + ${#temporals.format(event.date, 'dd MMMM yyyy, HH:mm', new java.util.Locale('ru', 'RU'))}">
+                    Дата и время</h4>
+                <h4 th:text="'Стоимость: ' + ${event.cost} + ' рублей'">Стоимость</h4>
+                <h4 th:text="'Длительность: ' + ${event.duration} + ' мин.'">Длительность</h4>
+                <h4 th:text="'Категория: ' + ${event.categoryName}">Категория</h4>
+                <h4 th:text="'Сложность: ' + ${event.difficultyName}">Сложность</h4>
+                <div class="mt-3">
+                    <a class="btn btn-warning"
+                       th:href="@{/events/{eventId}(eventId=${event.id})}">Записаться</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

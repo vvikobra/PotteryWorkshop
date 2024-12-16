@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org" xmlns:sec="">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container mt-4">
+        <h1 class="text-center">ПРОФИЛЬ</h1>
+        <div class="bg-light p-3 rounded mb-4">
+            <h2 th:text="${model.name}">Имя пользователя</h2>
+            <h5 th:text="${model.email}">Электронная почта</h5>
+        </div>
+        <div class="d-flex justify-content-center gap-3">
+            <a class="btn btn-secondary" th:href="@{/users/edit}">Редактировать профиль</a>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mt-3" sec:authorize="hasRole('USER')">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a th:class="'nav-link ' + (${status} == 'actual' ? 'active' : '')"
+                           th:href="@{/users/profile/actual}"
+                           aria-current="page">Активные</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:class="'nav-link ' + (${status} == 'completed' ? 'active' : '')"
+                           th:href="@{/users/profile/completed}">Завершенные</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:class="'nav-link ' + (${status} == 'canceled' ? 'active' : '')"
+                           th:href="@{/users/profile/canceled}">Отмененные</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</main>
