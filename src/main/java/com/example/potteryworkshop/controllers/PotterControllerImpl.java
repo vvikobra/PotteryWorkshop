@@ -108,9 +108,9 @@ public class PotterControllerImpl implements PotterController {
     @Override
     @PostMapping("/{potterId}/edit")
     public String editPotter(@PathVariable UUID potterId,
-                            @Valid @ModelAttribute("form") EditPotterForm editPotterForm,
-                            BindingResult bindingResult,
-                            Model model) {
+                             @Valid @ModelAttribute("form") EditPotterForm editPotterForm,
+                             BindingResult bindingResult,
+                             Model model) {
         if (bindingResult.hasErrors()) {
             LOG.log(Level.INFO, "Incorrect data for editing potter with id: " + potterId);
             var viewModel = new PotterEditViewModel(createBaseViewModel("Редактирование гончара"), potterId);

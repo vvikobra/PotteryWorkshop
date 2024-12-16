@@ -17,6 +17,4 @@ public interface EventRepository {
 
     List<Event> findByPotterId(UUID potterId);
 
-    List<Event> findByDifficulty(String difficulty);
-
 }

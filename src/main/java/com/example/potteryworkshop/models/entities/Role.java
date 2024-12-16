@@ -3,7 +3,6 @@ package com.example.potteryworkshop.models.entities;
 import com.example.potteryworkshop.models.enums.UserRoles;
 import jakarta.persistence.*;
 
-import java.util.Set;
 
 @Entity
 @Table(name = "roles")

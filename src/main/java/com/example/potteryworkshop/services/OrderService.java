@@ -8,10 +8,15 @@ import java.util.UUID;
 
 public interface OrderService {
     void addOrder(OrderInputDTO orderInputDTO, Boolean isDiscounted);
+
     void cancelOrder(UUID id);
+
     void updatePastOrders();
+
     List<OrderOutputDTO> getActualOrders(UUID id);
+
     List<OrderOutputDTO> getCanceledOrders(UUID id);
+
     List<OrderOutputDTO> getPastOrders(UUID id);
 
 }

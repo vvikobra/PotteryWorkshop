@@ -1,7 +1,5 @@
 package com.example.potteryworkshop.controllers;
 
-import com.example.potteryworkshop.exceptions.event.InvalidEventDataException;
-import com.example.potteryworkshop.exceptions.event.InvalidEventDateException;
 import com.example.potteryworkshop.models.dtos.*;
 import com.example.potteryworkshop.services.*;
 import jakarta.validation.Valid;

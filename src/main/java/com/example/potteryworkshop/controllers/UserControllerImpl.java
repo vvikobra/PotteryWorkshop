@@ -124,7 +124,7 @@ public class UserControllerImpl implements UserController {
         var user = userService.findByEmail(principal.getName());
         var viewModel = new EditProfileViewModel(createBaseViewModel("Редактирование профиля"));
         model.addAttribute("model", viewModel);
-        model.addAttribute("form", new EditProfileForm(user.getName(),"", ""));
+        model.addAttribute("form", new EditProfileForm(user.getName(), "", ""));
         return "user-profile-edit";
     }
 

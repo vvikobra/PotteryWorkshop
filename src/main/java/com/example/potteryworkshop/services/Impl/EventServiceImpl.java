@@ -4,6 +4,7 @@ import com.example.potteryworkshop.exceptions.category.CategoryNotFoundException
 import com.example.potteryworkshop.exceptions.difficulty.DifficultyNotFoundException;
 import com.example.potteryworkshop.exceptions.event.EventNotFoundException;
 import com.example.potteryworkshop.exceptions.event.InvalidEventDataException;
+import com.example.potteryworkshop.exceptions.event.InvalidEventDateException;
 import com.example.potteryworkshop.exceptions.potter.PotterNotFoundException;
 import com.example.potteryworkshop.models.dtos.EventInputDTO;
 import com.example.potteryworkshop.models.dtos.EventOutputDTO;
@@ -73,7 +74,7 @@ public class EventServiceImpl implements EventService {
                     .forEach(System.out::println);
             throw new InvalidEventDataException();
         }
-        if (eventDTO.getDate().isBefore(LocalDateTime.now())) throw new InvalidEventDataException();
+        if (eventDTO.getDate().isBefore(LocalDateTime.now())) throw new InvalidEventDateException();
         Category category = categoryRepository.findByName(eventDTO.getCategoryName()).orElseThrow(() -> new CategoryNotFoundException(eventDTO.getCategoryName()));
         Difficulty difficulty = difficultyRepository.findByName(eventDTO.getDifficultyName()).orElseThrow(() -> new DifficultyNotFoundException(eventDTO.getDifficultyName()));
         Potter potter = potterRepository.findByName(eventDTO.getPotterName()).orElseThrow(() -> new PotterNotFoundException(eventDTO.getPotterName()));

@@ -7,7 +7,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,13 +19,6 @@ public class PotterRepositoryImpl extends BaseRepository<Potter, UUID> implement
 
     @PersistenceContext
     private EntityManager entityManager;
-
-    @Override
-    public LocalDate findEmploymentDate(UUID potterId) {
-        return entityManager.createQuery("SELECT p.employmentDate FROM Potter p WHERE id = :id", LocalDate.class)
-                .setParameter("id", potterId)
-                .getSingleResult();
-    }
 
     @Override
     public List<Potter> findEmployedPotters() {

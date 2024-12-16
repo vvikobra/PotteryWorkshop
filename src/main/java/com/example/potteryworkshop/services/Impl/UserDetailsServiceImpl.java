@@ -1,6 +1,5 @@
 package com.example.potteryworkshop.services.Impl;
 
-import com.example.potteryworkshop.repositories.Impl.UserRepositoryImpl;
 import com.example.potteryworkshop.repositories.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

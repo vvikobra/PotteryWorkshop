@@ -2,7 +2,6 @@ package com.example.potteryworkshop.models.entities;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity

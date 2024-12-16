@@ -2,7 +2,6 @@ package com.example.potteryworkshop.services.Impl;
 
 import com.example.potteryworkshop.exceptions.user.InvalidUserDataException;
 import com.example.potteryworkshop.exceptions.user.PasswordsNotMatchException;
-import com.example.potteryworkshop.exceptions.user.UserAlreadyExistsException;
 import com.example.potteryworkshop.exceptions.user.UserNotFoundException;
 import com.example.potteryworkshop.models.dtos.UserInputDTO;
 import com.example.potteryworkshop.models.dtos.UserOutputDTO;
@@ -14,9 +13,6 @@ import jakarta.validation.ConstraintViolation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -33,16 +29,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public void setUserRepository(UserRepositoryImpl userRepository) {
         this.userRepository = userRepository;
-    }
-
-    @Override
-    public List<UserOutputDTO> findAllUsers() {
-        return userRepository.findAll().stream().map(this::mapUserToUserDTO).toList();
-    }
-
-    @Override
-    public UserOutputDTO findById(UUID id) {
-        return mapUserToUserDTO(userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id)));
     }
 
     @Override
@@ -70,5 +56,4 @@ public class UserServiceImpl implements UserService {
     private UserOutputDTO mapUserToUserDTO(User user) {
         return new UserOutputDTO(user.getId(), user.getPassword(), user.getName(), user.getEmail());
     }
-
 }

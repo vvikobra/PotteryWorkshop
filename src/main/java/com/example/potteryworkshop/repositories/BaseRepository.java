@@ -46,9 +46,4 @@ public abstract class BaseRepository<E, ID> {
         entityManager.merge(entity);
     }
 
-    @Transactional
-    public void deleteById(ID id) {
-        E entity = findById(id).orElseThrow();
-        entityManager.remove(entity);
-    }
 }

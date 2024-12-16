@@ -1,6 +1,5 @@
 package com.example.potteryworkshop.repositories.Impl;
 
-
 import com.example.potteryworkshop.models.entities.Difficulty;
 import com.example.potteryworkshop.repositories.BaseRepository;
 import com.example.potteryworkshop.repositories.DifficultyRepository;

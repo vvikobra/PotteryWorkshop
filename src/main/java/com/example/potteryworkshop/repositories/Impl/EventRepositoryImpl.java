@@ -97,10 +97,4 @@ public class EventRepositoryImpl extends BaseRepository<Event, UUID> implements 
                 .setParameter("currentDate", currentDate)
                 .getResultList();
     }
-
-    public List<Event> findByDifficulty(String difficulty) {
-        return entityManager.createQuery("FROM Event e WHERE e.difficulty = :difficulty", Event.class)
-                .setParameter("difficulty", difficulty)
-                .getResultList();
-    }
 }
