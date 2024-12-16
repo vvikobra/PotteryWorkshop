@@ -5,7 +5,6 @@ import com.example.potteryworkshop.models.dtos.StatusDTO;
 import com.example.potteryworkshop.models.entities.Status;
 import com.example.potteryworkshop.repositories.Impl.StatusRepositoryImpl;
 import com.example.potteryworkshop.services.StatusService;
-import com.example.potteryworkshop.util.Mapper;
 import com.example.potteryworkshop.util.validation.ValidationUtil;
 import jakarta.validation.ConstraintViolation;
 import org.springframework.beans.factory.annotation.Autowired;
