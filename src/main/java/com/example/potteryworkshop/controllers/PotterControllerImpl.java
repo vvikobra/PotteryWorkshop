@@ -137,7 +137,7 @@ public class PotterControllerImpl implements PotterController {
                                     Model model) {
         LOG.log(Level.INFO, "Show potter details with id: " + potterId);
         var potter = potterService.findById(potterId);
-        var events = eventService.showPottersEvents(potterId).stream().map(event -> new EventViewModel(event.getId().toString(), event.getName(), event.getDuration(), event.getCost(), event.getDiscountCost(), event.getDescription(), event.getDate(), event.getImageUrl(), event.getCategoryName(), event.getDifficultyName(), event.getDifficultyName())).toList();
+        var events = eventService.showPottersEvents(potterId).stream().map(event -> new EventViewModel(event.getId(), event.getName(), event.getDuration(), event.getCost(), event.getDiscountCost(), event.getDescription(), event.getDate(), event.getImageUrl(), event.getCategoryName(), event.getDifficultyName(), event.getDifficultyName())).toList();
         var viewModel = new PotterDetailsViewModel(createBaseViewModel("Гончар"), new PotterViewModel(potter.getId(), potter.getName(), potter.getExperienceYears(), potter.getExperienceMonths(), potter.getImageUrl()),
                 events);
         model.addAttribute("model", viewModel);
