@@ -67,7 +67,7 @@ public class EventControllerImpl implements EventController {
     @GetMapping("/")
     public String showAllEvents(Model model) {
         LOG.log(Level.INFO, "Show all events for admin");
-        var eventViewModels = eventService.findAllEvents().stream().map(event -> new AdminEventViewModel(event.getId().toString(), event.getName(), event.getDate(), event.getCost(), event.getCategoryName(), event.getDifficultyName())).toList();
+        var eventViewModels = eventService.findAllEvents().stream().map(event -> new AdminEventViewModel(event.getId(), event.getName(), event.getDate(), event.getCost(), event.getCategoryName(), event.getDifficultyName())).toList();
         var viewModel = new EventListViewModel(createBaseViewModel("Мероприятия"), eventViewModels);
         model.addAttribute("model", viewModel);
         return "events";
@@ -115,9 +115,9 @@ public class EventControllerImpl implements EventController {
 
     @Override
     @GetMapping("/{eventId}/edit")
-    public String editForm(@PathVariable String eventId, Model model) {
+    public String editForm(@PathVariable UUID eventId, Model model) {
         LOG.log(Level.INFO, "Edit event with id: " + eventId);
-        var event = eventService.findById(UUID.fromString(eventId));
+        var event = eventService.findById(eventId);
         var viewModel = new EventEditViewModel(createBaseViewModel("Редактирование мероприятия"), eventId);
         List<String> categories = categoryService.findAllCategories().stream().map(CategoryDTO::getName).toList();
         List<String> difficulties = difficultyService.findAllDifficulties().stream().map(DifficultyDTO::getName).toList();
@@ -132,7 +132,7 @@ public class EventControllerImpl implements EventController {
 
     @Override
     @PostMapping("/{eventId}/edit")
-    public String editEvent(@PathVariable String eventId,
+    public String editEvent(@PathVariable UUID eventId,
                             @Valid @ModelAttribute("form") EditEventForm editEventForm,
                             BindingResult bindingResult,
                             Model model) {
@@ -149,7 +149,7 @@ public class EventControllerImpl implements EventController {
             model.addAttribute("potters", potters);
             return "event-edit";
         }
-        eventService.updateEvent(UUID.fromString(eventId), new EventInputDTO(editEventForm.name(), editEventForm.duration(), editEventForm.cost(), editEventForm.maxParticipants(), editEventForm.description(), editEventForm.date(), editEventForm.imageUrl(), editEventForm.categoryName(), editEventForm.difficultyName(), editEventForm.potterName()));
+        eventService.updateEvent(eventId, new EventInputDTO(editEventForm.name(), editEventForm.duration(), editEventForm.cost(), editEventForm.maxParticipants(), editEventForm.description(), editEventForm.date(), editEventForm.imageUrl(), editEventForm.categoryName(), editEventForm.difficultyName(), editEventForm.potterName()));
         LOG.log(Level.INFO, "Successfully edit event with id: " + eventId);
         return "redirect:/events/";
     }
@@ -158,7 +158,7 @@ public class EventControllerImpl implements EventController {
     @GetMapping("/upcoming")
     public String showUpcomingEvents(Model model) {
         LOG.log(Level.INFO, "Show upcoming events");
-        var eventViewModels = eventService.showUpcomingEvents().stream().map(e -> new EventViewModel(e.getId().toString(), e.getName(), e.getDuration(), e.getCost(), e.getDiscountCost(), e.getDescription(), e.getDate(), e.getImageUrl(), e.getCategoryName(), e.getDifficultyName(), e.getPotterName())).toList();
+        var eventViewModels = eventService.showUpcomingEvents().stream().map(e -> new EventViewModel(e.getId(), e.getName(), e.getDuration(), e.getCost(), e.getDiscountCost(), e.getDescription(), e.getDate(), e.getImageUrl(), e.getCategoryName(), e.getDifficultyName(), e.getPotterName())).toList();
         var viewModel = new UpcomingEventsViewModel(createBaseViewModel("Расписание"),
                 eventViewModels);
 
@@ -184,7 +184,7 @@ public class EventControllerImpl implements EventController {
         LOG.log(Level.INFO, "Register to event with id: " + eventId);
         var event = eventService.findById(eventId);
         var potter = potterService.findById(event.getPotterId());
-        var viewModel = new EventRegistrationViewModel(createBaseViewModel("Запись на мероприятие"), new EventViewModel(event.getId().toString(), event.getName(), event.getDuration(), event.getCost(), event.getDiscountCost(), event.getDescription(), event.getDate(), event.getImageUrl(), event.getCategoryName(), event.getDifficultyName(), event.getPotterName()),
+        var viewModel = new EventRegistrationViewModel(createBaseViewModel("Запись на мероприятие"), new EventViewModel(event.getId(), event.getName(), event.getDuration(), event.getCost(), event.getDiscountCost(), event.getDescription(), event.getDate(), event.getImageUrl(), event.getCategoryName(), event.getDifficultyName(), event.getPotterName()),
                 new PotterViewModel(potter.getId(), potter.getName(), potter.getExperienceYears(), potter.getExperienceMonths(), potter.getImageUrl()));
         model.addAttribute("model", viewModel);
         model.addAttribute("form", new EventRegistrationForm(1));
@@ -202,7 +202,7 @@ public class EventControllerImpl implements EventController {
         if (bindingResult.hasErrors()) {
             LOG.log(Level.INFO, "Incorrect data for registration to event with id: " + eventId);
             var potter = potterService.findById(event.getPotterId());
-            var viewModel = new EventRegistrationViewModel(createBaseViewModel("Запись на мероприятие"), new EventViewModel(event.getId().toString(), event.getName(), event.getDuration(), event.getCost(), event.getDiscountCost(), event.getDescription(), event.getDate(), event.getImageUrl(), event.getCategoryName(), event.getDifficultyName(), event.getPotterName()),
+            var viewModel = new EventRegistrationViewModel(createBaseViewModel("Запись на мероприятие"), new EventViewModel(event.getId(), event.getName(), event.getDuration(), event.getCost(), event.getDiscountCost(), event.getDescription(), event.getDate(), event.getImageUrl(), event.getCategoryName(), event.getDifficultyName(), event.getPotterName()),
                     new PotterViewModel(potter.getId(), potter.getName(), potter.getExperienceYears(), potter.getExperienceMonths(), potter.getImageUrl()));
             model.addAttribute("model", viewModel);
             model.addAttribute("form", eventRegistrationForm);
@@ -215,7 +215,7 @@ public class EventControllerImpl implements EventController {
         } catch (NotEnoughTicketsException exception) {
             LOG.log(Level.INFO, "Incorrect data for registration to event with id: " + eventId);
             var potter = potterService.findById(event.getPotterId());
-            var viewModel = new EventRegistrationViewModel(createBaseViewModel("Запись на мероприятие"), new EventViewModel(event.getId().toString(), event.getName(), event.getDuration(), event.getCost(), event.getDiscountCost(), event.getDescription(), event.getDate(), event.getImageUrl(), event.getCategoryName(), event.getDifficultyName(), event.getPotterName()),
+            var viewModel = new EventRegistrationViewModel(createBaseViewModel("Запись на мероприятие"), new EventViewModel(event.getId(), event.getName(), event.getDuration(), event.getCost(), event.getDiscountCost(), event.getDescription(), event.getDate(), event.getImageUrl(), event.getCategoryName(), event.getDifficultyName(), event.getPotterName()),
                     new PotterViewModel(potter.getId(), potter.getName(), potter.getExperienceYears(), potter.getExperienceMonths(), potter.getImageUrl()));
             model.addAttribute("model", viewModel);
             model.addAttribute("form", eventRegistrationForm);
