@@ -42,6 +42,14 @@ public abstract class BaseRepository<E, ID> {
     }
 
     @Transactional
+    public Optional<E> findByName(String name) {
+        return entityManager.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e WHERE e.name = :name", entityClass)
+                .setParameter("name", name)
+                .getResultStream()
+                .findFirst();
+    }
+
+    @Transactional
     public void update(E entity) {
         entityManager.merge(entity);
     }

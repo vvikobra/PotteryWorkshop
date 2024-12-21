@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class RoleRepositoryImpl extends BaseRepository<Role, UUID> implements RoleRepository {
+public class RoleRepositoryImpl extends BaseRepository<Role, UUID>  implements RoleRepository {
     @PersistenceContext
     public EntityManager entityManager;
 
