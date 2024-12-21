@@ -37,8 +37,8 @@ public class ApplicationSecurityConfiguration {
                                         .requestMatchers("/", "/users/login", "/users/register", "/users/login-error")
                                         .permitAll().
                                         requestMatchers("/users/profile").authenticated().
-                                        requestMatchers("/employees/add", "/employees/employee-delete/").hasRole(UserRoles.ADMIN.name()).
-                                        requestMatchers("/companies/company-delete/").hasRole(UserRoles.ADMIN.name()).
+                                        requestMatchers("/potters/create", "/potters/admin", "/potters/*/edit", "/potters/*/dismiss").hasRole(UserRoles.ADMIN.name()).
+                                        requestMatchers("/events", "/events/create", "/events/*/edit").hasRole(UserRoles.ADMIN.name()).
                                         anyRequest().authenticated()
                 )
                 .formLogin(
@@ -47,8 +47,6 @@ public class ApplicationSecurityConfiguration {
                                         loginPage("/users/login").
                                         usernameParameter("email").
                                         passwordParameter("password").
-//                                        usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
-//                                        passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
                                         defaultSuccessUrl("/").
                                         failureForwardUrl("/users/login-error")
                 )
