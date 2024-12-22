@@ -1,4 +1,4 @@
-package com.example.potteryworkshop.models.dtos;
+package com.example.potteryworkshop.models.dtos.input;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +11,6 @@ public class OrderInputDTO {
     private LocalDate orderDate;
     private int ticketQuantity;
     private int totalCost;
-
     private String email;
     private UUID eventId;
 

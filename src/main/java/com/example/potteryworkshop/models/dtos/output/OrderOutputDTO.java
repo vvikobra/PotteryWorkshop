@@ -1,4 +1,4 @@
-package com.example.potteryworkshop.models.dtos;
+package com.example.potteryworkshop.models.dtos.output;
 
 import java.io.Serializable;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package com.example.potteryworkshop.models.dtos;
+package com.example.potteryworkshop.models.dtos.input;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;

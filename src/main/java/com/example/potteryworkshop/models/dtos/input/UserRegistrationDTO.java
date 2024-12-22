@@ -1,4 +1,4 @@
-package com.example.potteryworkshop.models.dtos;
+package com.example.potteryworkshop.models.dtos.input;
 
 import com.example.potteryworkshop.util.validation.UniqueEmail;
 import jakarta.validation.constraints.*;
