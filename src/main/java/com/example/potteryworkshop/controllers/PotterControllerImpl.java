@@ -1,6 +1,6 @@
 package com.example.potteryworkshop.controllers;
 
-import com.example.potteryworkshop.models.dtos.PotterInputDTO;
+import com.example.potteryworkshop.models.dtos.input.PotterInputDTO;
 import com.example.potteryworkshop.services.EventService;
 import com.example.potteryworkshop.services.PotterService;
 import jakarta.validation.Valid;

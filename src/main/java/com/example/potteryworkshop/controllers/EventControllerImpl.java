@@ -2,6 +2,9 @@ package com.example.potteryworkshop.controllers;
 
 import com.example.potteryworkshop.exceptions.order.NotEnoughTicketsException;
 import com.example.potteryworkshop.models.dtos.*;
+import com.example.potteryworkshop.models.dtos.input.EventInputDTO;
+import com.example.potteryworkshop.models.dtos.input.OrderInputDTO;
+import com.example.potteryworkshop.models.dtos.output.PotterOutputDTO;
 import com.example.potteryworkshop.services.*;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.Level;

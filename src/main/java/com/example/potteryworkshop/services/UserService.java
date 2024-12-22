@@ -1,7 +1,7 @@
 package com.example.potteryworkshop.services;
 
-import com.example.potteryworkshop.models.dtos.UserInputDTO;
-import com.example.potteryworkshop.models.dtos.UserOutputDTO;
+import com.example.potteryworkshop.models.dtos.input.UserInputDTO;
+import com.example.potteryworkshop.models.dtos.output.UserOutputDTO;
 
 
 public interface UserService {

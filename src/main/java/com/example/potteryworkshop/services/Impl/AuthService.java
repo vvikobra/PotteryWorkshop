@@ -3,7 +3,7 @@ package com.example.potteryworkshop.services.Impl;
 import com.example.potteryworkshop.exceptions.user.PasswordsNotMatchException;
 import com.example.potteryworkshop.exceptions.user.UserAlreadyExistsException;
 import com.example.potteryworkshop.exceptions.user.UserNotFoundException;
-import com.example.potteryworkshop.models.dtos.UserRegistrationDTO;
+import com.example.potteryworkshop.models.dtos.input.UserRegistrationDTO;
 import com.example.potteryworkshop.models.entities.User;
 import com.example.potteryworkshop.models.enums.UserRoles;
 import com.example.potteryworkshop.repositories.Impl.RoleRepositoryImpl;

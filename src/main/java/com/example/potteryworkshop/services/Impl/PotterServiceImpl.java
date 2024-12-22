@@ -2,8 +2,8 @@ package com.example.potteryworkshop.services.Impl;
 
 import com.example.potteryworkshop.exceptions.potter.InvalidPotterDataException;
 import com.example.potteryworkshop.exceptions.potter.PotterNotFoundException;
-import com.example.potteryworkshop.models.dtos.PotterInputDTO;
-import com.example.potteryworkshop.models.dtos.PotterOutputDTO;
+import com.example.potteryworkshop.models.dtos.input.PotterInputDTO;
+import com.example.potteryworkshop.models.dtos.output.PotterOutputDTO;
 import com.example.potteryworkshop.models.entities.Potter;
 import com.example.potteryworkshop.repositories.Impl.PotterRepositoryImpl;
 import com.example.potteryworkshop.services.PotterService;

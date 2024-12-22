@@ -7,5 +7,6 @@ import java.util.UUID;
 
 public interface OrderRepository {
     Long countByEventId(UUID eventId);
+
     List<Order> findByUserIdAndStatus(UUID userId, String statusName);
 }

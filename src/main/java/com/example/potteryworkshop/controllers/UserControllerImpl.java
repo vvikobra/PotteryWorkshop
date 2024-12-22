@@ -2,8 +2,8 @@ package com.example.potteryworkshop.controllers;
 
 import com.example.potteryworkshop.exceptions.user.PasswordsNotMatchException;
 import com.example.potteryworkshop.exceptions.user.UserAlreadyExistsException;
-import com.example.potteryworkshop.models.dtos.UserInputDTO;
-import com.example.potteryworkshop.models.dtos.UserRegistrationDTO;
+import com.example.potteryworkshop.models.dtos.input.UserInputDTO;
+import com.example.potteryworkshop.models.dtos.input.UserRegistrationDTO;
 import com.example.potteryworkshop.services.Impl.AuthService;
 import com.example.potteryworkshop.services.OrderService;
 import com.example.potteryworkshop.services.UserService;

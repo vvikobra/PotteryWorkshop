@@ -1,7 +1,7 @@
 package com.example.potteryworkshop.services;
 
-import com.example.potteryworkshop.models.dtos.OrderInputDTO;
-import com.example.potteryworkshop.models.dtos.OrderOutputDTO;
+import com.example.potteryworkshop.models.dtos.input.OrderInputDTO;
+import com.example.potteryworkshop.models.dtos.output.OrderOutputDTO;
 
 import java.util.List;
 import java.util.UUID;

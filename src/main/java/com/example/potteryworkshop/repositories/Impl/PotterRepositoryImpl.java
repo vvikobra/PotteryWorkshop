@@ -8,7 +8,6 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -24,12 +23,5 @@ public class PotterRepositoryImpl extends BaseRepository<Potter, UUID> implement
     public List<Potter> findEmployedPotters() {
         return entityManager.createQuery("FROM Potter p WHERE p.employed = true", Potter.class)
                 .getResultList();
-    }
-
-    @Override
-    public Optional<Potter> findByName(String name) {
-        return Optional.ofNullable(entityManager.createQuery("FROM Potter p WHERE p.name = :name", Potter.class)
-                .setParameter("name", name)
-                .getSingleResult());
     }
 }

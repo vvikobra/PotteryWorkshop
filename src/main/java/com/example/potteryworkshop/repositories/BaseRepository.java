@@ -41,12 +41,11 @@ public abstract class BaseRepository<E, ID> {
         return count > 0;
     }
 
-    @Transactional
     public Optional<E> findByName(String name) {
-        return entityManager.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e WHERE e.name = :name", entityClass)
+        List<E> result = entityManager.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e WHERE e.name = :name", entityClass)
                 .setParameter("name", name)
-                .getResultStream()
-                .findFirst();
+                .getResultList();
+        return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
     }
 
     @Transactional
