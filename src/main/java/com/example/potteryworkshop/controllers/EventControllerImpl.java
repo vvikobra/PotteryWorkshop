@@ -89,13 +89,12 @@ public class EventControllerImpl implements EventController {
         model.addAttribute("categories", categories);
         model.addAttribute("difficulties", difficulties);
         model.addAttribute("potters", potters);
-
         return "event-create";
     }
 
     @Override
     @PostMapping("/create")
-    public String addEvent(@Valid @ModelAttribute("form") AddEventForm addEventForm,
+    public String createEvent(@Valid @ModelAttribute("form") AddEventForm addEventForm,
                            BindingResult bindingResult,
                            Model model) {
         if (bindingResult.hasErrors()) {
